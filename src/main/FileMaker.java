@@ -90,13 +90,13 @@ public class FileMaker {
 		String[] wordsList = new String[] {"[TGI_VILLE]", "[TGI_ADDR]", "[NOM_EC]", "[PRENOM_EC]", "[MRMME_EC]", "[MrMme_EC]", "[MascFem_EC]", "[PRENOM_REEL]", "[MrMme_REEL]", "[MascFem_REEL]", "[IlElle_REEL]",
 				"[MascuFemu_REEL]", "[!ISFEM]", "[ISFEM]", "[DOB]", "[POB]", "[SITUATION_JOB]", "[SITUATION_FAM]", "[ADDR]", "[PHONE]", "[PARCOURS]", "[SOCIALE]", "[POW]", "[DOW]"};
 		String[] replaceList = new String[] {
-				dossier.getTribunal_ville(), dossier.getTribunal_addresse(), dossier.getNom_EC(), dossier.getPrenom_EC(), (dossier.getGenre_EC() == Gender.MASC)?"Monsieur":"Madame", (dossier.getGenre_EC() == Gender.MASC)?"monsieur":"madame",
+				dossier.getTribunal_adresse_ville(), dossier.getFullTJadress(), dossier.getNom_EC(), dossier.getPrenom_EC(), (dossier.getGenre_EC() == Gender.MASC)?"Monsieur":"Madame", (dossier.getGenre_EC() == Gender.MASC)?"monsieur":"madame",
 						(dossier.getGenre_EC() == Gender.MASC)?"masculin":"féminin", dossier.getPrenom_reel(), (dossier.getGenre_reel() == Gender.MASC)?"monsieur":"madame",
 						(dossier.getGenre_reel() == Gender.MASC)?"masculin":"féminin", (dossier.getGenre_reel() == Gender.MASC)?"il":"elle",
 						(dossier.getGenre_reel() == Gender.MASC)?"masculine":"féminine",
 						(dossier.getGenre_reel() == Gender.MASC)?"e":"", (dossier.getGenre_reel() == Gender.MASC)?"":"e",
-						dossier.getDob(), dossier.getPob(), dossier.getSituation(), dossier.getSituation_familiale(), dossier.getAdresse(), dossier.getTelephone(),
-						dossier.getParcours(), dossier.getReconnaissance_sociale(), dossier.getLieu(), dossier.getDate()
+						dossier.getDob(), dossier.getPob(), dossier.getSituation(), dossier.getSituation_familiale(), dossier.getFulladress(), dossier.getTelephone(),
+						dossier.getParcours(), dossier.getReconnaissance_sociale(), dossier.getadresse_ville(), dossier.getDate()
 		};
 		
 		for(int i = 0; i < wordsList.length; i++) {

@@ -14,8 +14,10 @@ public class Dossier implements Serializable {
 	
 	private boolean changementPrenom;
 	
-	private String tribunal_ville; // TGI_VILLE
-	private String tribunal_addresse; //TGI_ADDR
+	private String tribunal_adresse; //TGI_ADDR
+	private String tribunal_adresse_complement; //TGI_ADDR
+	private String tribunal_adresse_ville; //TGI_ADDR
+	private String tribunal_adresse_cp; //TGI_ADDR
 	
 	private String nom_EC; //NOM_EC
 	private String prenom_EC; //PRENOM_EC
@@ -28,12 +30,14 @@ public class Dossier implements Serializable {
 	private String situation; //SITUATION_JOB
 	private String situation_familiale; //SITUATION_FAM
 	private String adresse; //ADDR
+	private String adresse_complement; //ADDR
+	private String adresse_ville; //ADDR
+	private String adresse_cp; //ADDR
 	private String telephone; //PHONE
 	
 	private String parcours; // 1 page minimum, 2 pages maximum PARCOURS
 	private String reconnaissance_sociale; // Environ 1 page RECO_SOCIALE
 	
-	private String lieu; //POW
 	private String date; //DOW
 	
 	private List<String> pieces;
@@ -68,8 +72,10 @@ public class Dossier implements Serializable {
 		Dossier retour = new Dossier();
 		
 		retour.changementPrenom = false;
-		retour.tribunal_ville = "Lille";
-		retour.tribunal_addresse = "13  Avenue du Peuple Belge, 59800 Lille";
+		retour.tribunal_adresse = "13  Avenue du Peuple Belge";
+		retour.tribunal_adresse_complement = "";
+		retour.tribunal_adresse_ville = "Lille";
+		retour.tribunal_adresse_cp = "59800";
 		retour.nom_EC = "Cousin";
 		retour.prenom_EC = "Alice Sérana Hope";
 		retour.genre_EC = Gender.MASC;
@@ -79,9 +85,11 @@ public class Dossier implements Serializable {
 		retour.pob = "Seclin";
 		retour.situation = "Sans emploi";
 		retour.situation_familiale = "Célibataire";
-		retour.adresse = "102 rue des Stations, Bât D2 Apt 242, 59800 Lille";
+		retour.adresse = "102 rue des Stations";
+		retour.adresse_complement = "Bâtiment D2 Appartement 242";
+		retour.adresse_ville = "Lille";
+		retour.adresse_cp = "59800";
 		retour.telephone = "06.67.16.21.17";
-		retour.lieu = "Lille";
 		retour.date = "26/01/2021";
 		retour.parcours = "LOREM IPSUM";
 		retour.reconnaissance_sociale = "LORUM IPSEM";
@@ -97,20 +105,12 @@ public class Dossier implements Serializable {
 		this.changementPrenom = changementPrenom;
 	}
 
-	public String getTribunal_ville() {
-		return tribunal_ville;
+	public String getTribunal_adresse() {
+		return tribunal_adresse;
 	}
 
-	public void setTribunal_ville(String tribunal_ville) {
-		this.tribunal_ville = tribunal_ville;
-	}
-
-	public String getTribunal_addresse() {
-		return tribunal_addresse;
-	}
-
-	public void setTribunal_addresse(String tribunal_addresse) {
-		this.tribunal_addresse = tribunal_addresse;
+	public void setTribunal_adresse(String tribunal_adresse) {
+		this.tribunal_adresse = tribunal_adresse;
 	}
 
 	public String getNom_EC() {
@@ -185,11 +185,11 @@ public class Dossier implements Serializable {
 		this.situation_familiale = situation_familiale;
 	}
 
-	public String getAdresse() {
+	public String getadresse() {
 		return adresse;
 	}
 
-	public void setAdresse(String adresse) {
+	public void setadresse(String adresse) {
 		this.adresse = adresse;
 	}
 
@@ -217,14 +217,6 @@ public class Dossier implements Serializable {
 		this.reconnaissance_sociale = reconnaissance_sociale;
 	}
 
-	public String getLieu() {
-		return lieu;
-	}
-
-	public void setLieu(String lieu) {
-		this.lieu = lieu;
-	}
-
 	public String getDate() {
 		return date;
 	}
@@ -239,5 +231,63 @@ public class Dossier implements Serializable {
 
 	public void setPieces(List<String> pieces) {
 		this.pieces = pieces;
+	}
+
+	public String getTribunal_adresse_complement() {
+		return tribunal_adresse_complement;
+	}
+
+	public void setTribunal_adresse_complement(String tribunal_adresse_complement) {
+		this.tribunal_adresse_complement = tribunal_adresse_complement;
+	}
+
+	public String getTribunal_adresse_ville() {
+		return tribunal_adresse_ville;
+	}
+
+	public void setTribunal_adresse_ville(String tribunal_adresse_ville) {
+		this.tribunal_adresse_ville = tribunal_adresse_ville;
+	}
+
+	public String getTribunal_adresse_cp() {
+		return tribunal_adresse_cp;
+	}
+
+	public void setTribunal_adresse_cp(String tribunal_adresse_cp) {
+		this.tribunal_adresse_cp = tribunal_adresse_cp;
+	}
+
+	public String getadresse_complement() {
+		return adresse_complement;
+	}
+
+	public void setadresse_complement(String adresse_complement) {
+		this.adresse_complement = adresse_complement;
+	}
+
+	public String getadresse_ville() {
+		return adresse_ville;
+	}
+
+	public void setadresse_ville(String adresse_ville) {
+		this.adresse_ville = adresse_ville;
+	}
+
+	public String getadresse_cp() {
+		return adresse_cp;
+	}
+
+	public void setadresse_cp(String adresse_cp) {
+		this.adresse_cp = adresse_cp;
+	}
+	
+	public String getFulladress() {
+		return this.adresse + ((this.adresse_complement != null && !this.adresse_complement.isEmpty())?", " + this.adresse_complement:"")
+			+ ", " + this.adresse_cp + " " + this.adresse_ville;
+	}
+	
+	public String getFullTJadress() {
+		return this.tribunal_adresse + ((this.tribunal_adresse_complement != null && !this.tribunal_adresse_complement.isEmpty())?", " + this.tribunal_adresse_complement:"")
+			+ ", " + this.tribunal_adresse_cp + " " + this.tribunal_adresse_ville;
 	}
 }
