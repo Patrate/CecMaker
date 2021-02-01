@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -12,6 +13,11 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+
+import java.util.Calendar;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+  
 
 public class FileMaker {
 
@@ -95,8 +101,8 @@ public class FileMaker {
 						(dossier.getGenre_reel() == Gender.MASC)?"masculin":"féminin", (dossier.getGenre_reel() == Gender.MASC)?"il":"elle",
 						(dossier.getGenre_reel() == Gender.MASC)?"masculine":"féminine",
 						(dossier.getGenre_reel() == Gender.MASC)?"e":"", (dossier.getGenre_reel() == Gender.MASC)?"":"e",
-						dossier.getDob(), dossier.getPob(), dossier.getSituation(), dossier.getSituation_familiale(), dossier.getFulladress(), dossier.getTelephone(),
-						dossier.getParcours(), dossier.getReconnaissance_sociale(), dossier.getadresse_ville(), dossier.getDate()
+						getReadableDate(dossier.getDob()), dossier.getPob(), dossier.getSituation(), dossier.getSituation_familiale(), dossier.getFulladress(), dossier.getTelephone(),
+						dossier.getParcours(), dossier.getReconnaissance_sociale(), dossier.getadresse_ville(), getReadableDate(dossier.getDate())
 		};
 		
 		for(int i = 0; i < wordsList.length; i++) {
@@ -104,6 +110,17 @@ public class FileMaker {
 		}
 		
 		return text;
+	}
+	
+	private static String getReadableDate(String date) {
+		try {
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(new SimpleDateFormat("yyyy-MM-dd").parse(date));
+		    return calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.FRENCH) + " " + calendar.get(Calendar.YEAR);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return "DATE ERROR: " + date;
+		}
 	}
 
 	

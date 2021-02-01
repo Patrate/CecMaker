@@ -190,6 +190,7 @@ function requestDossier() {
             a.delete
           }
           document.getElementById("downloadDossierButton").disabled = false
+          document.getElementById("downloadDossierButton").value = "Télécharger le dossier"
        }
   };
   xhttp.open("POST", API_url + 'download?name=' + cred["pseudo"] + '&key=' + cred["pwd"], true);
