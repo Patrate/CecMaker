@@ -71,10 +71,10 @@ public class REST {
 		}
 
 		String json = request.body();
-		System.out.println(json);
 		try {
 			Communicator.saveProfile(key, json);
 			response.status(200);
+			response.body("Saved"); 
 		} catch (NoSuchAlgorithmException | InvalidKeySpecException | IOException e) {
 			e.printStackTrace();
 			response.status(500);
@@ -95,13 +95,13 @@ public class REST {
 			e.printStackTrace();
 			response.status(500);
 			response.body("Error: " + e.getMessage());
-			return null;
+			return response.raw();
 		}
 
 		String json = request.body();
 		if(json == null || json.isEmpty()) {
 			response.status(500);
-			return null;
+			return response.raw();
 		}
 		try {
 			Communicator.saveProfile(key, json);
@@ -121,6 +121,6 @@ public class REST {
 			response.status(500);
 			e.printStackTrace();
 		}
-		return null;
+		return response.raw();
 	}
 }

@@ -101,7 +101,7 @@ function getDossier(){
     }
     var i;
 
-    for (i = 1; i < 5; i++) {
+    for (i = 1; i < 6; i++) {
       dossier["pieces"].push(document.getElementById("PJ" + i).value)
     }
 
@@ -131,23 +131,7 @@ function fillDossier(dossier){
     document.getElementById("tribunal_adresse_cp").value = dossier["tribunal_adresse_cp"]
     document.getElementById("parcours").value = dossier["parcours"]
     document.getElementById("reconnaissance_sociale").value = dossier["reconnaissance_sociale"]
-    document.getElementById("PJ4").value = dossier["pieces"][4]
-}
-
-function sendRequest(type, urlExt, dossier){
-  var xhttp = new XMLHttpRequest();
-  xhttp.onload = function() {
-       if (this.readyState == 4 && this.status == 200) {
-           console.log(this.responseText);
-       }
-  };
-  xhttp.open(type, API_url + urlExt, true);
-  xhttp.setRequestHeader("Content-type", "application/json");
-  if(dossier != null){
-    xhttp.send(JSON.stringify(dossier));
-  } else {
-    xhttp.send()
-  }
+    document.getElementById("PJ5").value = dossier["pieces"][4]
 }
 
 function save() {
@@ -156,7 +140,15 @@ function save() {
   if(cred == null || dossier == null){
     return;
   }
-  sendRequest("POST", '?name=' + cred["pseudo"] + '&key=' + cred["pwd"], dossier)
+  var xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+       if (this.readyState == 4 && this.status == 200) {
+           console.log(this.responseText);
+       }
+  };
+  xhttp.open("POST", API_url + '?name=' + cred["pseudo"] + '&key=' + cred["pwd"], true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(JSON.stringify(dossier));
 }
 
 function load() {
@@ -183,5 +175,21 @@ function requestDossier() {
   if(cred == null || dossier == null){
     return;
   }
-  sendRequest("GET", 'download?name="' + cred["pseudo"] + '"&key="' + cred["pwd"] +'"', dossier)
+  var xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+       if (this.readyState == 4 && this.status == 200) {
+          // Trick for making downloadable link
+          a = document.createElement('a');
+          a.href = window.URL.createObjectURL(xhttp.response);
+          // Give filename you wish to download
+          a.download = "dossier.docx";
+          a.style.display = 'none';
+          document.body.appendChild(a);
+          a.click();
+       }
+  };
+  xhttp.open("POST", API_url + 'download?name=' + cred["pseudo"] + '&key=' + cred["pwd"], true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.responseType = 'blob';
+  xhttp.send(JSON.stringify(dossier));
 }

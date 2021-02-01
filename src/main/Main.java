@@ -12,13 +12,15 @@ public class Main {
         });*/
 		
 		get("/", (request, response) -> {
+			System.out.println("GET /");
 			return REST.getUser(request, response);
 		});
 		post("/", (request, response) -> {
-
+			System.out.println("POST /");
 			return REST.saveUser(request, response);
 		});
-		get("/download", (request, response) -> {
+		post("/download", (request, response) -> {
+			System.out.println("GET /download");
 			return REST.getDossier(request, response);
 		});
 		// TODO clean régulièrement des docx générés
