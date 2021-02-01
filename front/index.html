@@ -147,7 +147,7 @@ C'est un exemple bidon, ne mettez pas d'abréviations ni d'émoji 😤
           </h4>
         </div>
 
-        <input type = "button" value = "Télécharger le dossier"  onclick="return requestDossier();"/><br>
+        <input type = "button" value = "Télécharger le dossier"  onclick="this.value='Dossier en construction...';this.disabled=true;return requestDossier();" id="downloadDossierButton"/><br>
       </form>
     </div>
     <script src="script.js"></script>

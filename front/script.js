@@ -177,15 +177,19 @@ function requestDossier() {
   }
   var xhttp = new XMLHttpRequest();
   xhttp.onload = function() {
-       if (this.readyState == 4 && this.status == 200) {
-          // Trick for making downloadable link
-          a = document.createElement('a');
-          a.href = window.URL.createObjectURL(xhttp.response);
-          // Give filename you wish to download
-          a.download = "dossier.docx";
-          a.style.display = 'none';
-          document.body.appendChild(a);
-          a.click();
+       if (this.readyState == 4) {
+         if (this.status == 200) {
+            // Trick for making downloadable link
+            a = document.createElement('a');
+            a.href = window.URL.createObjectURL(xhttp.response);
+            // Give filename you wish to download
+            a.download = "dossier.docx";
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            a.delete
+          }
+          document.getElementById("downloadDossierButton").disabled = false
        }
   };
   xhttp.open("POST", API_url + 'download?name=' + cred["pseudo"] + '&key=' + cred["pwd"], true);
