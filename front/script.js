@@ -1,5 +1,5 @@
-//API_url = "//mon-cec.emmathie.fr/api/"
-API_url = "https://mon-cec.emmathie.fr/api/"
+API_url = "//mon-cec.emmathie.fr/api/"
+//API_url = "https://mon-cec.emmathie.fr/api/"
 //API_url = "localhost:4567/"
 function updateChangementPrenom() {
   if (document.getElementById("changementPrenom").checked) {
@@ -56,7 +56,7 @@ function getDossier(){
     var changementPrenom = document.getElementById("changementPrenom").checked;
     var prenom_EC = "";
     if (changementPrenom){
-       prenom_EC = document.getElementById("pseudo").value;
+       prenom_EC = document.getElementById("prenom_EC").value;
     } else {
       prenom_EC = prenom_reel;
     }
@@ -74,23 +74,6 @@ function getDossier(){
       return null;
     }
 
-    var addresse = document.getElementById("addresse").value;
-    if(document.getElementById("addresse_complement").value) {
-      addresse += ", " + document.getElementById("addresse_complement").value
-    }
-    addresse += ", " + document.getElementById("addresse_cp").value + " " + document.getElementById("addresse_ville").value;
-
-
-    var lieu = document.getElementById("addresse_ville").value;
-
-    var addresse_tribunal = document.getElementById("tribunal_addresse").value;
-    if(document.getElementById("tribunal_addresse_complement").value) {
-      addresse_tribunal += ", " + document.getElementById("tribunal_addresse_complement").value
-    }
-    addresse_tribunal += ", " + document.getElementById("tribunal_addresse_cp").value + " " + document.getElementById("tribunal_addresse_ville").value;
-
-    var tribunal_ville = document.getElementById("tribunal_addresse_ville").value;
-
     var dossier = {
       "prenom_reel": prenom_reel,
       "changementPrenom": changementPrenom,
@@ -102,12 +85,16 @@ function getDossier(){
       "pob": document.getElementById("pob").value,
       "situation": document.getElementById("situation").value,
       "situation_familiale": document.getElementById("situation_familiale").value,
-      "addresse": addresse,
+      "adresse": document.getElementById("adresse").value,
+      "adresse_complement": document.getElementById("adresse_complement").value,
+      "adresse_ville": document.getElementById("adresse_ville").value,
+      "adresse_cp": document.getElementById("adresse_cp").value,
       "telephone": document.getElementById("telephone").value,
-      "lieu": lieu,
       "date": document.getElementById("date").value,
-      "tribunal_addresse": addresse_tribunal,
-      "tribunal_ville": tribunal_ville,
+      "tribunal_adresse": document.getElementById("tribunal_adresse").value,
+      "tribunal_adresse_complement": document.getElementById("tribunal_adresse_complement").value,
+      "tribunal_adresse_ville": document.getElementById("tribunal_adresse_ville").value,
+      "tribunal_adresse_cp": document.getElementById("tribunal_adresse_cp").value,
       "parcours": document.getElementById("parcours").value,
       "reconnaissance_sociale": document.getElementById("reconnaissance_sociale").value,
       "pieces": []
@@ -119,6 +106,32 @@ function getDossier(){
     }
 
     return dossier;
+}
+
+function fillDossier(dossier){
+    document.getElementById("prenom_reel").value = dossier["prenom_reel"]
+    document.getElementById("changementPrenom").checked = dossier["changementPrenom"]
+    document.getElementById("prenom_EC").value = dossier["prenom_EC"]
+    document.getElementById("MASC").checked = dossier["genre_reel"] == "MASC"
+    document.getElementById("FEM").checked = dossier["genre_reel"] == "FEM"
+    document.getElementById("nom_EC").value = dossier["nom_EC"]
+    document.getElementById("dob").value = dossier["dob"]
+    document.getElementById("pob").value = dossier["pob"]
+    document.getElementById("situation").value = dossier["situation"]
+    document.getElementById("situation_familiale").value = dossier["situation_familiale"]
+    document.getElementById("adresse").value = dossier["adresse"]
+    document.getElementById("adresse_complement").value = dossier["adresse_complement"]
+    document.getElementById("adresse_ville").value = dossier["adresse_ville"]
+    document.getElementById("adresse_cp").value = dossier["adresse_cp"]
+    document.getElementById("telephone").value = dossier["telephone"]
+    document.getElementById("date").value = dossier["date"]
+    document.getElementById("tribunal_adresse").value = dossier["tribunal_adresse"]
+    document.getElementById("tribunal_adresse_complement").value = dossier["tribunal_adresse_complement"]
+    document.getElementById("tribunal_adresse_ville").value = dossier["tribunal_adresse_ville"]
+    document.getElementById("tribunal_adresse_cp").value = dossier["tribunal_adresse_cp"]
+    document.getElementById("parcours").value = dossier["parcours"]
+    document.getElementById("reconnaissance_sociale").value = dossier["reconnaissance_sociale"]
+    document.getElementById("PJ4").value = dossier["pieces"][4]
 }
 
 function sendRequest(type, urlExt, dossier){
@@ -151,7 +164,17 @@ function load() {
   if(cred == null){
     return;
   }
-  sendRequest("GET", '?name=' + cred["pseudo"] + '&key=' + cred["pwd"], null)
+  var xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+       if (this.readyState == 4 && this.status == 200) {
+           console.log(this.responseText);
+           json = this.responseText;
+           fillDossier(JSON.parse(json))
+       }
+  };
+  xhttp.open("GET", API_url + '?name=' + cred["pseudo"] + '&key=' + cred["pwd"], true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send()
 }
 
 function requestDossier() {
