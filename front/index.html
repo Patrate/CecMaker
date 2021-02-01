@@ -1,0 +1,156 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="credentials_div" class="categoryBlock">
+      <form>
+        <label for="pseudo">pseudo:</label> <input type="text" id="pseudo" name="pseudo">
+        <label for="pwd">mot de passe:</label> <input type="text" id="pwd" name="pwd">
+        <input type = "button" value = "Sauvegarder le dossier" onClick="return save();"/>
+        <input type = "button" value = "Charger le dossier" onClick="return load();"/><br>
+        <!-- Il faut mettre un pseudo et un mot de passe pour pouvoir retrouver son dossier n'importe où.
+          Si ces champs ne sont pas rempis la sauvegarde ne marche pas obviously, il faut afficher un message d'erreur expliquant ça
+          Charger le dossier doit permettre de préremplir tous les champs avec les données déjà sauvegardées. Si elles ne sont pas
+          trouvées il faut afficher un message d'erreur expliquant que le dossier n'a pas été retrouvé -->
+      </form>
+    </div>
+    <div id="title_div" class="categoryBlock">
+      <h1>Constructeur de dossier de changement de genre (et de prénom) à l'état civil</h1><br>
+      <p>Inspiré des dossiers et ressources du site <a href="https://www.acthe.fr">ACTHE.fr</a></p>
+    </div>
+
+    <div id="formulaire_div">
+      <form>
+        <!-- Ajouter une majuscule automatiquement à tous les champs qui n'en ont pas -->
+        <div id="you_div" class="categoryBlock">
+          <h3>Toi</h3>
+          <label for="prenom_reel">Prénom:</label><br>
+          <input type="text" id="prenom_reel" name="prenom_reel"><br>
+
+          <label for="nom_EC">Nom:</label><br>
+          <input type="text" id="nom_EC" name="nom_EC"><br>
+
+          <label for="changementPrenom"> Changement de prénom </label>
+          <input type="checkbox" id="changementPrenom" name="changementPrenom" value="changementPrenom"><br>
+          <!-- Si changementPrenom est décoché, le champ prenom_EC n'apparait pas, et la valeur prenom_EC sera égale à prenom_reel -->
+          <div id="div_prenom_EC">
+            <label for="prenom_EC">Prénom Etat Civil:</label><br>
+            <input type="text" id="prenom_EC" name="prenom_EC"><br>
+          </div>
+
+          <p>Pour l'instant l'état ne reconnait que les genres masculins et féminins.</p>
+          <p>Choisissez le genre que vous désirez sur votre état civil parmis ces deux là</p>
+          <input type="radio" id="MASC" name="genre_reel" value="MASC">
+          <label for="MASC">Homme</label><br>
+          <input type="radio" id="FEM" name="genre_reel" value="FEM">
+          <label for="FEM">Femme</label><br>
+          <!-- genre_EC est égal à l'inverse de genre_reel, aka si genre_reel = MASC, genre_EC = FEM automatiquement -->
+
+          <label for="dob">Date de naissance:</label><br>
+          <input type="date" id="dob" name="dob"><br>
+
+          <label for="pob">Lieu de naissance:</label><br>
+          <input type="text" id="pob" name="pob"><br>
+
+          <label for="situation">Situation professionnelle:</label><br>
+          <input type="text" id="situation" name="situation" placeholder="Etudiant'e, sans emploi, employé'e etc..."><br>
+
+          <label for="situation_familiale">Situation familiale:</label><br>
+          <input type="text" id="situation_familiale" name="situation_familiale" placeholder="Célibataire, concubinage, marié'e sans enfants, marié'e avec enfants etc..."><br>
+
+
+          <label for="addresse">Adresse:</label><br>
+          <input type="text" id="addresse" name="addresse"><br>
+
+          <label for="addresse_complement">Complément d'adresse:</label><br>
+          <input type="text" id="addresse_complement" name="addresse_complement"><br>
+
+          <label for="addresse_ville">Ville:</label><br>
+          <input type="text" id="addresse_ville" name="addresse_ville"><br>
+
+          <label for="addresse_cp">Code postal:</label><br>
+          <input type="text" id="addresse_cp" name="addresse_cp"><br>
+
+          <label for="telephone">Numéro de téléphone:</label><br>
+          <input type="text" id="telephone" name="telephone" placeholder="06.01.23.45.67" pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{2}\.[0-9]{2}\.[0-9]{2}"><br>
+
+        </div>
+
+        <div id="tribunal_div" class="categoryBlock">
+          <h3>Le Tribunal Judiciaire</h3>
+
+          <label for="tribunal_addresse">Addresse ligne 1:</label><br>
+          <input type="text" id="tribunal_addresse" name="tribunal_addresse"><br>
+
+          <label for="tribunal_addresse_complement">Addresse ligne 2:</label><br>
+          <input type="text" id="tribunal_addresse_complement" name="tribunal_addresse_complement"><br>
+
+          <label for="tribunal_addresse_ville">Ville:</label><br>
+          <input type="text" id="tribunal_addresse_ville" name="tribunal_addresse_ville"><br>
+
+          <label for="tribunal_addresse_cp">Code Postal:</label><br>
+          <input type="text" id="tribunal_addresse_cp" name="tribunal_addresse_cp"><br>
+        </div>
+
+        <div id="parcours_div" class="categoryBlock">
+          <h3>Ton histoire et ton parcours</h3>
+          <label for="parcours">Votre parcours en tant que personne transgenre (1 page min, 2 page max, donc entre X et Y caractères)</label><br>
+          <textarea rows = "15" cols = "60" name = "parcours" id = "parcours">
+Raconte ton expérience en tant que personne trans ici.
+eg "Je sais que qqchose ne va pas depuis mes 1 ans et demis, j'ai joué avec des poupées quand j'étais un bébé et dès que j'ai appris ce qu'était la transidentité soudainement tout faisait sens ! du coup je transitionne depuis que j'ai 2 ans, et tbh même si c'est un peu tôt pour les hormones je me sens bien mieux."
+Faites des références aux pièces que vous ajoutez, comme les lettres de témoignage
+</textarea><br><br>
+          <!-- Ajouter un compteur de caractères qui permet d'estimer si le parcours est suffisant -->
+
+          <label for="reconnaissance_sociale">Reconnaissance sociale:</label><br>
+          <textarea rows = "15" cols = "60" name = "reconnaissance_sociale" id = "reconnaissance_sociale">
+Raconte ce qui montre que tu es reconnue socialement comme étant la personne que tu es
+eg "Mon abonnement téléphonique est à mon genre et prénom, sur mon contrat de travail on a écrit Mademoiselle malgré le M sur ma CI, les personnes dans la rue m'abordent de manière bien trop lourde pour qu'il y ait le moindre soupçons quant à mon genre féminin 🤡"
+Faites des références aux pièces que vous ajoutez, comme les factures ou autres
+
+C'est un exemple bidon, ne mettez pas d'abréviations ni d'émoji 😤
+          </textarea><br>
+        </div>
+
+        <div id="PJ_div" class="categoryBlock">
+          <h3>Pièces jointes</h3>
+          1: <input readonly type="text" id="PJ1" name="PJ1" value="Copie intégrale de l'acte de naissance de XXX XXX"><br>
+          2: <input readonly type="text" id="PJ2" name="PJ2" value="Carte d'identité de XXX XXX"><br>
+          3: <input readonly type="text" id="PJ3" name="PJ3" value="Consentement libre et éclairé pour la modification de l'acte de naissance"> <a href="https://www.acthe.fr/upload/1498998615-model-consentement-libre-eclaire.pdf">Télécharger</a><br>
+          4: <input readonly type="text" id="PJ4" name="PJ4" value="Justificatif de domicile"><br>
+          5: <input type="text" id="PJ5" name="PJ5" placeholder="A TON TOUR !"><br>
+          6: ...<br>
+          <!-- Ajouter la possibilité de rajouter tant de lignes qu'on veut -->
+        </div>
+
+        <label for="date">Date de rédaction:</label><br>
+        <input type="date" id="date" name="date" placeholder="Aujourd'hui, sauf si pour une raison vous préférez l'antidater ou le postdater"><br>
+        <!-- Aujourd'hui par défaut -->
+
+        <div id="README_div" class="categoryBlock readmeBlock">
+          <h4>
+            Une fois que les champs sont tous remplis, télécharge le dossier.<br>
+            Relis le pour vérifier que tout est correct, puis imprime le en double, et enfin signe le.<br><br>
+
+            Ensuite: Télécharge les papiers nécessaires // TODO ajouter la liste des papiers nécessaires<br>
+                  Consentement libre et éclairé pour la modification de l'acte de naissance<br>
+            Remplis les<br>
+            Numérote les pièces jointes telles qu'elles sont numérotées sur la page "Pièces jointes" du dossier<br><br>
+
+            Fait une photocopie de toutes les pièces jointes (il faut envoyer deux dossiers complets au tribunal)<br>
+            C'est fini ? Met ton dossier dans une grande enveloppe, écrit l'adresse du Tribunal Judiciaire dessus,<br>
+            va à ton bureau de poste le plus proche et envoie le en recommandé avec accusé de réception<br><br>
+
+            Et maintenant, tu attends. Bon courage !
+          </h4>
+        </div>
+
+        <input type = "button" value = "Télécharger le dossier"  onclick="return requestDossier();"/><br>
+      </form>
+    </div>
+    <script src="script.js"></script>
+  </body>
+
+</html>
