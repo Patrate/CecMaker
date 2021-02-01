@@ -90,7 +90,7 @@ function getDossier(){
       "adresse_ville": document.getElementById("adresse_ville").value,
       "adresse_cp": document.getElementById("adresse_cp").value,
       "telephone": document.getElementById("telephone").value,
-      "date": document.getElementById("date").value,
+      "date": new Date().getFullYear() + "-" + new Date().getMonth() + "-" + new Date().getDay(),
       "tribunal_adresse": document.getElementById("tribunal_adresse").value,
       "tribunal_adresse_complement": document.getElementById("tribunal_adresse_complement").value,
       "tribunal_adresse_ville": document.getElementById("tribunal_adresse_ville").value,
@@ -124,7 +124,6 @@ function fillDossier(dossier){
     document.getElementById("adresse_ville").value = dossier["adresse_ville"]
     document.getElementById("adresse_cp").value = dossier["adresse_cp"]
     document.getElementById("telephone").value = dossier["telephone"]
-    document.getElementById("date").value = dossier["date"]
     document.getElementById("tribunal_adresse").value = dossier["tribunal_adresse"]
     document.getElementById("tribunal_adresse_complement").value = dossier["tribunal_adresse_complement"]
     document.getElementById("tribunal_adresse_ville").value = dossier["tribunal_adresse_ville"]
