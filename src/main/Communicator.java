@@ -8,14 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.security.spec.KeySpec;
-import java.util.Base64;
-
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 
 public class Communicator {
-	private static final byte[] salt = new byte[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 	private static final String folder = "profiles";
 	
 	public static void saveProfile(String key, String data) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
@@ -35,11 +29,7 @@ public class Communicator {
 	}
 	
 	public static String hash(String data) throws NoSuchAlgorithmException, InvalidKeySpecException {
-		KeySpec spec = new PBEKeySpec(data.toCharArray(), salt, 65536, 128);
-		SecretKeyFactory f = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-		byte[] hash = f.generateSecret(spec).getEncoded();
-		Base64.Encoder enc = Base64.getEncoder();
-		return enc.encodeToString(hash);
+		return data;
 	}
 	
 	public static String readJson(String path) throws IOException {
