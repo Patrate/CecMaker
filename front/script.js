@@ -178,8 +178,15 @@ function save() {
   }
   var xhttp = new XMLHttpRequest();
   xhttp.onload = function() {
-       if (this.readyState == 4 && this.status == 200) {
-           console.log(this.responseText);
+       if (this.readyState == 4) {
+           if (this.status == 200) {
+             alert("Sauvegarde ok");
+           } else {
+             alert("Erreur lors de la sauvegarde");
+             console.log(this.responseText);
+           }
+           document.getElementById("saveButton").disabled = false
+           document.getElementById("saveButton").value = "Sauvegarder le dossier"
        }
   };
   xhttp.open("POST", API_url + '?name=' + cred["pseudo"] + '&key=' + cred["pwd"], true);
@@ -194,10 +201,16 @@ function load() {
   }
   var xhttp = new XMLHttpRequest();
   xhttp.onload = function() {
-       if (this.readyState == 4 && this.status == 200) {
-           console.log(this.responseText);
+       if (this.readyState == 4) {
+          if (this.status == 200) {
            json = this.responseText;
            fillDossier(JSON.parse(json))
+         } else {
+           alert("Erreur lors du chargement")
+         }
+
+         document.getElementById("loadButton").disabled = false
+         document.getElementById("loadButton").value = "Charger le dossier"
        }
   };
   xhttp.open("GET", API_url + '?name=' + cred["pseudo"] + '&key=' + cred["pwd"], true);

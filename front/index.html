@@ -8,8 +8,8 @@
       <form>
         <label for="pseudo">pseudo:</label> <input type="text" id="pseudo" name="pseudo">
         <label for="pwd">mot de passe:</label> <input type="text" id="pwd" name="pwd">
-        <input type = "button" value = "Sauvegarder le dossier" onClick="return save();"/>
-        <input type = "button" value = "Charger le dossier" onClick="return load();"/><br>
+        <input type = "button" value = "Sauvegarder le dossier" onClick="this.value='Sauvegarde...';this.disabled=true;return save();" id="saveButton"/>
+        <input type = "button" value = "Charger le dossier" onClick="this.value='Chargement...';this.disabled=true;return load();" id="loadButton"/><br>
         <!-- Il faut mettre un pseudo et un mot de passe pour pouvoir retrouver son dossier n'importe où.
           Si ces champs ne sont pas rempis la sauvegarde ne marche pas obviously, il faut afficher un message d'erreur expliquant ça
           Charger le dossier doit permettre de préremplir tous les champs avec les données déjà sauvegardées. Si elles ne sont pas
