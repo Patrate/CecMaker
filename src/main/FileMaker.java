@@ -44,7 +44,12 @@ public class FileMaker {
 			XWPFDocument doc = new XWPFDocument(OPCPackage.open(fis));
 			
 			int i = 1;
-			for(String piece : dossier.getPieces()) {
+			List<String> pieces = dossier.getPieces();
+			pieces.add(0, "Justificatif de domicile");
+			pieces.add(0, "Consentement libre et éclairé pour la modification de l'acte de naissance");
+			pieces.add(0, "Carte d'identité de " + dossier.getPrenom_EC() + " " + dossier.getNom_EC());
+			pieces.add(0, "Copie intégrale de l'acte de naissance de " + dossier.getPrenom_EC() + " " + dossier.getNom_EC());
+			for(String piece : pieces) {
 				XWPFParagraph newParagraph = doc.createParagraph();
 				newParagraph.setSpacingAfter(0);
 				XWPFRun run = newParagraph.createRun();
