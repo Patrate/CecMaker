@@ -163,7 +163,7 @@ function fillDossier(dossier){
     document.getElementById("parcours").value = dossier["parcours"]
     document.getElementById("reconnaissance_sociale").value = dossier["reconnaissance_sociale"]
     var i;
-    for(i = 3; i < dossier["pieces"].length; ++i) {
+    for(i = 0; i < dossier["pieces"].length; ++i) {
       var newPJ = addPJ();
       newPJ.value = dossier["pieces"][i]
     }
