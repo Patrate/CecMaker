@@ -100,8 +100,8 @@ function getDossier(){
       genre_reel = "FEM";
       genre_EC = "MASC";
     } else {
-      console.log("Vous avez oublié de choisir un genre");
-      return null;
+      genre_reel = "FEM";
+      genre_EC = "MASC";
     }
 
     var dossier = {
