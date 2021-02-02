@@ -35,7 +35,7 @@ public class Communicator {
 	}
 	
 	public static String hash(String data) throws NoSuchAlgorithmException, InvalidKeySpecException {
-		KeySpec spec = new PBEKeySpec("data".toCharArray(), salt, 65536, 128);
+		KeySpec spec = new PBEKeySpec(data.toCharArray(), salt, 65536, 128);
 		SecretKeyFactory f = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 		byte[] hash = f.generateSecret(spec).getEncoded();
 		Base64.Encoder enc = Base64.getEncoder();
