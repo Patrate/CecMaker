@@ -116,30 +116,35 @@ C'est un exemple bidon, ne mettez pas d'abréviations ni d'émoji 😤
 
         <div id="PJ_div" class="categoryBlock">
           <h3>Pièces jointes</h3>
-          1: <input readonly type="text" id="PJ1" name="PJ1" value="Copie intégrale de l'acte de naissance de XXX XXX"><br>
-          2: <input readonly type="text" id="PJ2" name="PJ2" value="Carte d'identité de XXX XXX"><br>
-          3: <input readonly type="text" id="PJ3" name="PJ3" value="Consentement libre et éclairé pour la modification de l'acte de naissance"> <a href="https://www.acthe.fr/upload/1498998615-model-consentement-libre-eclaire.pdf">Télécharger</a><br>
-          4: <input readonly type="text" id="PJ4" name="PJ4" value="Justificatif de domicile"><br>
-          5: <input type="text" id="PJ5" name="PJ5" placeholder="A TON TOUR !"><br>
-          6: ...<br>
+          <div>1: <input readonly type="text" id="PJ1" name="PJ1" value="Copie intégrale de l'acte de naissance de XXX XXX" disabled=true></div><br>
+          <div>2: <input readonly type="text" id="PJ2" name="PJ2" value="Carte d'identité de XXX XXX" disabled=true></div><br>
+          <div class="tooltip">3: <span class="tooltiptext">Clique et recopie à la main le consentement libre et éclairé</span><a href="https://www.acthe.fr/upload/1498998615-model-consentement-libre-eclaire.pdf" target="_blank" rel="noopener noreferrer"><input readonly type="text" id="PJ3" name="PJ3" value="Consentement libre et éclairé pour la modification de l'acte de naissance" disabled=true onClick="alert(coucou);"></a></div><br>
+          <div>4: <input readonly type="text" id="PJ4" name="PJ4" value="Justificatif de domicile" disabled=true></div><br>
+          <div id="pjList"></div>
+          <input type="button" value="Ajouter une pièce jointe" onclick="return addPJ();"/>
           <!-- Ajouter la possibilité de rajouter tant de lignes qu'on veut -->
         </div>
 
         <div id="README_div" class="categoryBlock readmeBlock">
           <h4>
             Une fois que les champs sont tous remplis, télécharge le dossier.<br>
-            Relis le pour vérifier que tout est correct, puis imprime le en double, et enfin signe le.<br><br>
-
-            Ensuite: Télécharge les papiers nécessaires // TODO ajouter la liste des papiers nécessaires<br>
-                  Consentement libre et éclairé pour la modification de l'acte de naissance<br>
-            Remplis les<br>
+            Relis le pour vérifier que tout est correct, imprime le, et enfin signe le.
+            <br><br>
+            Ensuite, procures toi les documents nécessaires:
+            <br>- Une copie de ton acte de naissance (contacte la mairie de ta ville de naissance)
+            <br>- Une photocopie de ta carte d'identité
+            <br>- Consentement libre et éclairé pour la modification de l'acte de naissance (recopié à la main, clique <a href="https://www.acthe.fr/upload/1498998615-model-consentement-libre-eclaire.pdf" target="_blank" rel="noopener noreferrer">ici</a> pour avoir un modèle)
+            <br>- Un justificatif de domicile
+            <br>- Tous les justificatifs possible pour argumenter de ta transidentité: Lettres de témoignage de tes proches, documents officiels indiquant ton prénom et genre (fiche de paye, factures...) etc
+            <br><br>
             Numérote les pièces jointes telles qu'elles sont numérotées sur la page "Pièces jointes" du dossier<br><br>
 
-            Fait une photocopie de toutes les pièces jointes (il faut envoyer deux dossiers complets au tribunal)<br>
-            C'est fini ? Met ton dossier dans une grande enveloppe, écrit l'adresse du Tribunal Judiciaire dessus,<br>
-            va à ton bureau de poste le plus proche et envoie le en recommandé avec accusé de réception<br><br>
+            Photocopie tout ton dossier et les pièces jointes (il faut envoyer le dossier complet en deux exemplaires au tribunal)
+            <br><br>
+            C'est fini ? Met ton dossier dans une grande enveloppe, écrit l'adresse du Tribunal Judiciaire dessus,<br>va à ton bureau de poste le plus proche et envoie le en recommandé avec accusé de réception
+            <br><br>
 
-            Et maintenant, tu attends. Bon courage !
+            Et maintenant, tu attends et tu croises les doigts. Bon courage !
           </h4>
         </div>
 

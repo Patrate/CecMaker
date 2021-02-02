@@ -1,6 +1,36 @@
 API_url = "//mon-cec.emmathie.fr/api/"
 //API_url = "https://mon-cec.emmathie.fr/api/"
 //API_url = "localhost:4567/"
+var pjNumber = 0;
+var pjList = [];
+var pjDivList = [];
+
+function addPJ() {
+  var container = document.getElementById("pjList");
+  var theSuperDiv = document.createElement("div");
+  var theDiv = document.createElement("div");
+  theDiv.appendChild(document.createTextNode("" + (5 + pjNumber) + ": "));
+  var theInput = document.createElement("input");
+  theInput.type = "text";
+  theDiv.appendChild(theInput)
+  pjList.push(theInput);
+  pjDivList.push(theSuperDiv);
+  pjNumber += 1
+
+  container.appendChild(theDiv);
+  container.appendChild(document.createElement("br"));
+
+  container.appendChild(theSuperDiv);
+  return theInput;
+}
+
+function removePJ(index) {
+  var container = document.getElementById("pjList");
+  container.removeChild(pjDivList[index])
+  pjList.splice(index, 1);
+  pjDivList.splice(index, 1);
+}
+
 function updateChangementPrenom() {
   if (document.getElementById("changementPrenom").checked) {
     document.getElementById("div_prenom_EC").style.visibility = "visible";
@@ -99,10 +129,12 @@ function getDossier(){
       "reconnaissance_sociale": document.getElementById("reconnaissance_sociale").value,
       "pieces": []
     }
-    var i;
 
-    for (i = 1; i < 6; i++) {
-      dossier["pieces"].push(document.getElementById("PJ" + i).value)
+    var i;
+    for (i = 0; i < pjList.length; ++i) {
+      if(pjList[i].value) {
+        dossier["pieces"].push(pjList[i].value)
+      }
     }
 
     return dossier;
@@ -130,7 +162,12 @@ function fillDossier(dossier){
     document.getElementById("tribunal_adresse_cp").value = dossier["tribunal_adresse_cp"]
     document.getElementById("parcours").value = dossier["parcours"]
     document.getElementById("reconnaissance_sociale").value = dossier["reconnaissance_sociale"]
-    document.getElementById("PJ5").value = dossier["pieces"][4]
+    var i;
+    for(i = 3; i < dossier["pieces"].length; ++i) {
+      var newPJ = addPJ();
+      newPJ.value = dossier["pieces"][i]
+    }
+    updatePJ();
 }
 
 function save() {
